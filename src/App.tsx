@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  HeadingWrapper,
+  MainDesc,
+  MainHeading,
+  MainWrapper,
+} from './App.styles';
+import { HotelCard } from './components/HotelCard/HotelCard';
+import { GlobalStyle } from './Global-style.styles';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalStyle />
+      <MainWrapper>
+        <HeadingWrapper>
+          <MainHeading>Enjoy Your Dream Stay</MainHeading>
+          <MainDesc>
+            Irure ullamco ut adipisicing velit aliquip laborum.
+          </MainDesc>
+        </HeadingWrapper>
+      </MainWrapper>
+      <HotelCard />
     </div>
   );
 }
 
 export default App;
+
