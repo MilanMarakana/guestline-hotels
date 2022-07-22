@@ -28,6 +28,7 @@ export interface Occupancy {
     maxOverall: number;
 }
 
+
 export type HotelList = Hotel;
 export type RoomList = Room;
 
@@ -37,4 +38,10 @@ export const fetchHotel = async (): Promise<HotelList[]> => {
     return hotel.map((hotel: Hotel) => ({
         ...hotel,
     }));
+};
+
+export const fetchRoom = async (id: string): Promise<RoomList[]> => {
+    const getRoom = await axios.get(`https://obmng.dbm.guestline.net/api/roomRates/OBMNG/${id}`);
+    const room = getRoom.data;
+    return room.rooms.slice(0, 3);
 };

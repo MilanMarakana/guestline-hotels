@@ -7,6 +7,7 @@ import {
 } from 'react-icons/ai';
 
 import { fetchHotel, HotelList } from '../../utils/api';
+import { RoomCard } from '../RoomCard/RoomCard';
 import {
   HotelCards,
   HotelCardWrapper,
@@ -16,21 +17,20 @@ import {
   StarWrapper,
 } from './HotelCard.styles';
 
-export const HotelCard = () => {
-  const [hotel, setHotel] = useState<HotelList[]>([]);
+export const HotelCard: React.FC = () => {
+  const [hotels, setHotels] = useState<HotelList[]>([]);
   const [current, setCurrent] = useState<number>(0);
 
   const getHotel = useCallback(async () => {
     const getHotels = await fetchHotel();
-    console.log(getHotels);
-    setHotel(getHotels);
+    setHotels(getHotels);
   }, []);
 
   useEffect(() => {
     getHotel();
   }, [getHotel]);
 
-  const sildeLength = hotel.map((htel) => htel.images.length);
+  const sildeLength = hotels.map((htel) => htel.images.length);
 
   const nextSlide: React.MouseEventHandler<HTMLOrSVGElement> = (): void => {
     setCurrent(current === sildeLength.length - 2 ? 0 : current + 1);
@@ -42,7 +42,7 @@ export const HotelCard = () => {
 
   return (
     <div>
-      {hotel.map((htel) => (
+      {hotels.map((htel) => (
         <HotelCardWrapper key={htel.id}>
           <HotelCards key={htel.name}>
             <Silder>
@@ -98,6 +98,7 @@ export const HotelCard = () => {
               ))}
             </StarWrapper>
           </HotelCards>
+          <RoomCard id={htel.id} />
         </HotelCardWrapper>
       ))}
     </div>
