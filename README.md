@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-#Guestline Hotels Project
+# Guestline Hotels Project
 
 ### Display the hotels(including name, address and star rating) with rooms only 3 now(including name, child and adult capacity and description). filtered the hotels based on star rating, no of person of rooms.
 
