@@ -1,10 +1,5 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react';
-import {
-  AiFillStar,
-  AiOutlineStar,
-  AiOutlineRight,
-  AiOutlineLeft,
-} from 'react-icons/ai';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Watch } from 'react-loader-spinner';
 import { GlobalContext } from '../../contexts/GlobalContext';
 
@@ -16,6 +11,8 @@ import {
   HotelCardWrapper,
   HotelDesc,
   HotelImg,
+  LeftArrow,
+  RightArrow,
   Silder,
   StarWrapper,
 } from './HotelCard.styles';
@@ -80,7 +77,7 @@ export const HotelCard: React.FC = () => {
                 <HotelCardWrapper key={htel.id}>
                   <HotelCards key={htel.name}>
                     <Silder>
-                      <AiOutlineLeft
+                      <LeftArrow
                         cursor="pointer"
                         style={{
                           position: 'absolute',
@@ -98,18 +95,17 @@ export const HotelCard: React.FC = () => {
                           }}
                           key={index}
                         >
-                          {index === current && (
+                          {index === current && silde.url && (
                             <HotelImg src={silde.url} alt="not found" />
                           )}
                         </div>
                       ))}
 
-                      <AiOutlineRight
+                      <RightArrow
                         cursor="pointer"
                         style={{
                           position: 'absolute',
                           color: '#fff',
-                          left: '150px',
                           strokeWidth: '50px',
                         }}
                         size={30}
@@ -117,20 +113,24 @@ export const HotelCard: React.FC = () => {
                       />
                     </Silder>
                     <HotelDesc>
-                      <h1>{htel.name}</h1>
-                      <p>{htel.address1}</p>
+                      <div>
+                        <h1>{htel.name}</h1>
+                        <p>{htel.address1}</p>
+                      </div>
+                      <div>
+                        <StarWrapper>
+                          {[...new Array(5)].map((_, i) => (
+                            <span key={i}>
+                              {i < parseInt(htel.starRating) ? (
+                                <AiFillStar size={28} fill="orange" />
+                              ) : (
+                                <AiOutlineStar size={28} />
+                              )}
+                            </span>
+                          ))}
+                        </StarWrapper>
+                      </div>
                     </HotelDesc>
-                    <StarWrapper>
-                      {[...new Array(5)].map((_, i) => (
-                        <span key={i}>
-                          {i < parseInt(htel.starRating) ? (
-                            <AiFillStar size={30} fill="orange" />
-                          ) : (
-                            <AiOutlineStar size={30} />
-                          )}
-                        </span>
-                      ))}
-                    </StarWrapper>
                   </HotelCards>
                   <RoomCard id={htel.id} />
                 </HotelCardWrapper>

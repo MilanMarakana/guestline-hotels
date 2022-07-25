@@ -29,7 +29,9 @@ export const MainWrapper = styled.div`
 		z-index: -1;
 		border-radius: 20px;
 	}
-	@media screen and (max-device-width: 1024px)
+	@media only screen 
+  		and (min-device-width: 375px) 
+  		and (max-device-width: 812px)
 		 {
 			border-radius: 5px;
 			height: 300px;
@@ -48,7 +50,7 @@ export const MainHeading = styled.h1`
 	font-family: 'Ralway', sans-serif ;
 	font-weight: 800;
 	text-align: center;
-	@media screen and (max-device-width: 1024px)
+	@media screen and (max-device-width: 1024px) 
 		 {
 			font-size: 1.5rem;
 		}
@@ -60,7 +62,9 @@ export const MainDesc = styled.p`
 	font-size: 1.2rem;
 	color: #EDE6DB;
 	font-family: 'Ralway', sans-serif;
-	@media screen and (max-device-width: 1024px)
+	@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
 		 {
 			font-size: 1rem;
 			margin-top: -10px;
@@ -79,22 +83,29 @@ export const FilterWrapper = styled.div`
     display: flex;
 	align-items: center;
 	justify-content:space-between;
-	@media screen and (max-device-width: 1024px) {
-		margin-top: 40px;
-		width: 80vw;
-		height: 50%;
-		left: 50%;
-    	top: 85%;
-    	transform: translate(-50%, -50%);
-		border-radius: 5px;
-		flex-direction: column;
+	@media only screen 
+  		and (min-device-width: 375px) 
+  		and (max-device-width: 812px)  {
+			margin-top: 40px;
+			width: 80vw;
+			height: 50%;
+			left: 50%;
+    		top: 85%;
+    		transform: translate(-50%, -50%);
+			border-radius: 5px;
+			flex-direction: column;
 		}
+	@media only screen and (min-device-width: 814px) {
+        width: 60vw;
+    }
 `;
 
 export const StarFilter = styled.div`
 	margin-top: 5px;
     margin-left: 20px;
-	@media screen and (max-device-width: 1024px) {
+	@media only screen 
+  		and (min-device-width: 375px) 
+  		and (max-device-width: 812px) {
 		margin-right: 25px;
 	}
 `;
@@ -103,7 +114,9 @@ export const FiltersWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	margin-right: 30px;
-	@media screen and (max-device-width: 1024px) {
+	@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px)  {
 		margin: 0 auto;
 	}
 `;
@@ -121,7 +134,9 @@ export const FilterHeading = styled.p`
 	font-size: 18px;
 	margin-top: 18px;
 	font-family: 'Lato', sans-serif;
-	@media screen and (max-device-width: 1024px) {
+	@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px)  {
 		margin-top: 16px;
 		font-size: 20px;
 	}
@@ -131,7 +146,9 @@ export const FilterValue = styled.p`
 	font-size: 18px;
 	line-height: 5px;
 	font-family: 'Lato', sans-serif;
-	@media screen and (max-device-width: 1024px) {
-		font-size: 20px;
+	@media only screen 
+  		and (min-device-width: 375px) 
+  		and (max-device-width: 812px)  {
+			font-size: 20px;
 	}
 `;

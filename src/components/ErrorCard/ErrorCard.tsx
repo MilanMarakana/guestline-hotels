@@ -3,12 +3,12 @@ import React from 'react';
 // import { ErrorButton } from '../ErrorButton/ErrorButton';
 import { ErrorBtn, ErrorCardContainer, ErrorText } from './ErrorCard.styles';
 
-interface ErrorButtonProps {
+interface ErrorCardProps {
   onClickHandler: React.MouseEventHandler<HTMLButtonElement>;
   label: string;
 }
 
-export const Errorcard: React.FC<ErrorButtonProps> = ({
+export const Errorcard: React.FC<ErrorCardProps> = ({
   label,
   onClickHandler,
 }) => {

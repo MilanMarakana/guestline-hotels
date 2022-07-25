@@ -19,10 +19,23 @@ export const ErrorCardContainer = styled.div`
 	&:hover {
 		transform: scale(1.05);
 	}
+
+	@media only screen 
+  		and (min-device-width: 375px) 
+  		and (max-device-width: 812px){
+			width: 90vw;
+			margin: 0 auto;
+			margin-top: 40%;
+		}
 `;
 
 export const ErrorText = styled.h1`
     font-family: 'Raleway', sans-serif;
+	@media only screen 
+  		and (min-device-width: 375px) 
+  		and (max-device-width: 812px){
+			font-size: 20px;
+		}
 `;
 
 export const ErrorBtn = styled.button`
@@ -44,5 +57,12 @@ export const ErrorBtn = styled.button`
 	&:hover {
 		background-color: #f0a560;
 	}
+	@media only screen 
+  		and (min-device-width: 375px) 
+  		and (max-device-width: 812px){
+			width: 200px;
+			font-size: 1.2rem;
+			margin-top: 20px;
+		}
 
 `;

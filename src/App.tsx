@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import { BiMinus, BiPlus } from 'react-icons/bi';
 import {
@@ -13,13 +13,11 @@ import {
   MainWrapper,
   StarFilter,
 } from './App.styles';
-import { Errorcard } from './components/ErrorCard/ErrorCard';
 import { HotelCard } from './components/HotelCard/HotelCard';
 import { globalContent, GlobalContext } from './contexts/GlobalContext';
 import { GlobalStyle } from './Global-style.styles';
-import { fetchHotel } from './utils/api';
 
-function App() {
+const App: React.FC = () => {
   const [childCapacity, setChildCapacity] = useState<number>(0);
   const [adultCapacity, setAdultCapacity] = useState<number>(0);
   const [rating, setRating] = useState<number>(0);
@@ -57,20 +55,6 @@ function App() {
       setAdultCapacity((prevState) => prevState - 1);
     }
   };
-
-  // const getHotel = useCallback(async () => {
-  //   setError(false);
-  //   try {
-  //     await fetchHotel();
-  //   } catch (error) {
-  //     setError(true);
-  //     console.error(error);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   getHotel();
-  // }, [getHotel]);
 
   return (
     <div className="App">
@@ -125,6 +109,6 @@ function App() {
       </GlobalContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
