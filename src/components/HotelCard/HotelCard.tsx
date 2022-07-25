@@ -5,9 +5,11 @@ import {
   AiOutlineRight,
   AiOutlineLeft,
 } from 'react-icons/ai';
+import { Watch } from 'react-loader-spinner';
 import { GlobalContext } from '../../contexts/GlobalContext';
 
 import { fetchHotel, HotelList } from '../../utils/api';
+import { Errorcard } from '../ErrorCard/ErrorCard';
 import { RoomCard } from '../RoomCard/RoomCard';
 import {
   HotelCards,
@@ -21,10 +23,21 @@ import {
 export const HotelCard: React.FC = () => {
   const [hotels, setHotels] = useState<HotelList[]>([]);
   const [current, setCurrent] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(true);
 
   const getHotel = useCallback(async () => {
-    const getHotels = await fetchHotel();
-    setHotels(getHotels);
+    setError(false);
+    setLoading(true);
+    try {
+      const getHotels = await fetchHotel();
+      setHotels(getHotels);
+      setLoading(false);
+    } catch (error) {
+      setError(true);
+      setLoading(false);
+      console.error(error);
+    }
   }, []);
 
   useEffect(() => {
@@ -44,69 +57,87 @@ export const HotelCard: React.FC = () => {
   const { rating } = useContext(GlobalContext);
 
   return (
-    <div>
-      {hotels.map(
-        (htel) =>
-          rating <= parseInt(htel.starRating) && (
-            <HotelCardWrapper key={htel.id}>
-              <HotelCards key={htel.name}>
-                <Silder>
-                  <AiOutlineLeft
-                    cursor="pointer"
-                    style={{
-                      position: 'absolute',
-                      color: '#fff',
-                      left: '5px',
-                      strokeWidth: '50px',
-                    }}
-                    size={30}
-                    onClick={prevSlide}
-                  />
-                  {htel.images.map((silde, index) => (
-                    <div
-                      style={{
-                        opacity: index === current ? 1 : 0,
-                      }}
-                      key={index}
-                    >
-                      {index === current && (
-                        <HotelImg src={silde.url} alt="not found" />
-                      )}
-                    </div>
-                  ))}
-
-                  <AiOutlineRight
-                    cursor="pointer"
-                    style={{
-                      position: 'absolute',
-                      color: '#fff',
-                      left: '150px',
-                      strokeWidth: '50px',
-                    }}
-                    size={30}
-                    onClick={nextSlide}
-                  />
-                </Silder>
-                <HotelDesc>
-                  <h1>{htel.name}</h1>
-                  <p>{htel.address1}</p>
-                </HotelDesc>
-                <StarWrapper>
-                  {[...new Array(5)].map((_, i) => (
-                    <span key={i}>
-                      {i < parseInt(htel.starRating) ? (
-                        <AiFillStar size={30} fill="orange" />
-                      ) : (
-                        <AiOutlineStar size={30} />
-                      )}
-                    </span>
-                  ))}
-                </StarWrapper>
-              </HotelCards>
-              <RoomCard id={htel.id} />
-            </HotelCardWrapper>
-          )
+    <>
+      {loading && (
+        <Watch
+          height={100}
+          width={100}
+          color="#355764"
+          wrapperStyle={{
+            marginTop: '80px',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        />
       )}
-    </div>
+      {error ? (
+        <Errorcard label="Try Again!" onClickHandler={getHotel} />
+      ) : (
+        <div>
+          {hotels.map(
+            (htel) =>
+              rating <= parseInt(htel.starRating) && (
+                <HotelCardWrapper key={htel.id}>
+                  <HotelCards key={htel.name}>
+                    <Silder>
+                      <AiOutlineLeft
+                        cursor="pointer"
+                        style={{
+                          position: 'absolute',
+                          color: '#fff',
+                          left: '5px',
+                          strokeWidth: '50px',
+                        }}
+                        size={30}
+                        onClick={prevSlide}
+                      />
+                      {htel.images.map((silde, index) => (
+                        <div
+                          style={{
+                            opacity: index === current ? 1 : 0,
+                          }}
+                          key={index}
+                        >
+                          {index === current && (
+                            <HotelImg src={silde.url} alt="not found" />
+                          )}
+                        </div>
+                      ))}
+
+                      <AiOutlineRight
+                        cursor="pointer"
+                        style={{
+                          position: 'absolute',
+                          color: '#fff',
+                          left: '150px',
+                          strokeWidth: '50px',
+                        }}
+                        size={30}
+                        onClick={nextSlide}
+                      />
+                    </Silder>
+                    <HotelDesc>
+                      <h1>{htel.name}</h1>
+                      <p>{htel.address1}</p>
+                    </HotelDesc>
+                    <StarWrapper>
+                      {[...new Array(5)].map((_, i) => (
+                        <span key={i}>
+                          {i < parseInt(htel.starRating) ? (
+                            <AiFillStar size={30} fill="orange" />
+                          ) : (
+                            <AiOutlineStar size={30} />
+                          )}
+                        </span>
+                      ))}
+                    </StarWrapper>
+                  </HotelCards>
+                  <RoomCard id={htel.id} />
+                </HotelCardWrapper>
+              )
+          )}
+        </div>
+      )}
+    </>
   );
 };

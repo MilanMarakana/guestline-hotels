@@ -16,8 +16,12 @@ export const RoomCard: React.FC<Props> = ({ id }) => {
   const [rooms, setRooms] = useState<RoomList | undefined | null | any>([]);
 
   const getRoom = useCallback(async () => {
-    const getRooms = await fetchRoom(id);
-    setRooms(getRooms);
+    try {
+      const getRooms = await fetchRoom(id);
+      setRooms(getRooms);
+    } catch (error) {
+      console.error(error);
+    }
   }, [id]);
 
   useEffect(() => {

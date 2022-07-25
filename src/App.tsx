@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AiFillStar } from 'react-icons/ai';
+import { BiMinus, BiPlus } from 'react-icons/bi';
 import {
+  FilterBtn,
+  FilterHeading,
+  FiltersWrapper,
+  FilterValue,
+  FilterWrapper,
   HeadingWrapper,
   MainDesc,
   MainHeading,
   MainWrapper,
+  StarFilter,
 } from './App.styles';
-import { FilterCard } from './components/FilterCard/FilterCard';
-import { StarFilter } from './components/FilterCard/FilterCard.styles';
+import { Errorcard } from './components/ErrorCard/ErrorCard';
 import { HotelCard } from './components/HotelCard/HotelCard';
 import { globalContent, GlobalContext } from './contexts/GlobalContext';
 import { GlobalStyle } from './Global-style.styles';
+import { fetchHotel } from './utils/api';
 
 function App() {
   const [childCapacity, setChildCapacity] = useState<number>(0);
@@ -51,6 +58,20 @@ function App() {
     }
   };
 
+  // const getHotel = useCallback(async () => {
+  //   setError(false);
+  //   try {
+  //     await fetchHotel();
+  //   } catch (error) {
+  //     setError(true);
+  //     console.error(error);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   getHotel();
+  // }, [getHotel]);
+
   return (
     <div className="App">
       <GlobalStyle />
@@ -61,29 +82,43 @@ function App() {
             Irure ullamco ut adipisicing velit aliquip laborum.
           </MainDesc>
         </HeadingWrapper>
-        <FilterCard
-          adultCapacity={adultCapacity}
-          childCapacity={childCapacity}
-          incrementChildHandler={incrementChildHandler}
-          decrementChildHandler={decrementChildHandler}
-          incrementAdultHandler={incrementAdultHandler}
-          decrementAdultHandler={decrementAdultHandler}
-        />
-        <StarFilter>
-          {[...Array(5)].map((_, index) => {
-            index += 1;
-            return (
-              <span key={index}>
-                <AiFillStar
-                  cursor="pointer"
-                  size={32}
-                  style={{ color: index <= rating ? 'orange' : '#ccc' }}
-                  onClick={() => setRating(index)}
-                ></AiFillStar>
-              </span>
-            );
-          })}
-        </StarFilter>
+        <FilterWrapper>
+          <StarFilter>
+            {[...Array(5)].map((_, index) => {
+              index += 1;
+              return (
+                <span key={index}>
+                  <AiFillStar
+                    cursor="pointer"
+                    size={32}
+                    style={{ color: index <= rating ? 'orange' : '#ccc' }}
+                    onClick={() => setRating(index)}
+                  ></AiFillStar>
+                </span>
+              );
+            })}
+          </StarFilter>
+          <FiltersWrapper>
+            <FilterHeading>Child :</FilterHeading>
+            <FilterBtn onClick={incrementChildHandler}>
+              <BiPlus cursor="pointer" size={20} />
+            </FilterBtn>
+            <FilterValue>{childCapacity}</FilterValue>
+            <FilterBtn onClick={decrementChildHandler}>
+              <BiMinus cursor="pointer" size={20} />
+            </FilterBtn>
+          </FiltersWrapper>
+          <FiltersWrapper>
+            <FilterHeading>Adult :</FilterHeading>
+            <FilterBtn onClick={incrementAdultHandler}>
+              <BiPlus cursor="pointer" size={20} />
+            </FilterBtn>
+            <FilterValue>{adultCapacity}</FilterValue>
+            <FilterBtn onClick={decrementAdultHandler}>
+              <BiMinus cursor="pointer" size={20} />
+            </FilterBtn>
+          </FiltersWrapper>
+        </FilterWrapper>
       </MainWrapper>
       <GlobalContext.Provider value={defaultValues}>
         <HotelCard />

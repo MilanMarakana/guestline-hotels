@@ -6,6 +6,9 @@ export const HotelCardWrapper = styled.div`
     width: 90%;
     margin: 0 auto;
     margin-top: 80px;
+    @media screen and (max-device-width: 1024px) {
+		width: 95%;
+	}
 `;
 
 export const HotelCards = styled.div`
@@ -13,15 +16,17 @@ export const HotelCards = styled.div`
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1rem;
     margin-left: 15px;
+    @media screen and (max-device-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+	}
 `;
 
 export const HotelDesc = styled.div`
     margin-left: -150px;
     font-family: 'Raleway', sans-serif;
-    @media screen and (min-device-width: 768px)
-		and (max-device-width: 1024px) {
-			margin-left: 15px;
-            font-size: 14px;
+    @media screen and (max-device-width: 1024px) {
+			margin-left: 5px;
+            font-size: 12px;
 		}
 `;
 
@@ -29,6 +34,10 @@ export const HotelImg = styled.img`
     width: 180px;
     height: 180px;
     margin-top: 10px;
+    @media screen and (max-device-width: 1024px) {
+        width: 130px;
+        height: 130px;
+	}
 `;
 
 export const Silder = styled.div`
